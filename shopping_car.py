@@ -4,7 +4,9 @@
 
 
 """
+**************************************************************************************************************************
 获取购物车信息
+**************************************************************************************************************************
 """
 
 
@@ -17,20 +19,14 @@ import requests, pymysql, random, re, json
 
 class shopping_trolley():
     def __init__(self, username, passworld):
-        self.taobao_con = pymysql.connect(
-            host='',
-            user="",
-            password="",
-            database="",
-            charset='utf8'
-        )
+        self.taobao_con = pymysql.connect(host='', user="", password="", database="", charset='utf8')
 
         self.taobao_cur = self.taobao_con.cursor()
 
         self.username = username
         self.passworld = passworld
 
-        proxy_sql = "SELECT proxy FROM `proxy_table`"
+        proxy_sql = ""
         try:
             self.taobao_cur.execute(proxy_sql)
         except Exception as E:
@@ -186,14 +182,13 @@ class shopping_trolley():
                 break
 
         for product in lastList:
-            inster_sql = """INSERT INTO shopping_car (username, pwd, id, productImg, seller, shopName, shopUrl, title, toBuy, productUrl, productPrice, status, skus, createtime) VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', "{}", NOW())""".format(self.username, self.passworld, product['id'], product['productImg'], product['seller'], product['shopName'], product['shopUrl'], product['title'], product['toBuy'], product['productUrl'], product['productPrice'], product['status'], product['skus'])
-
+            inster_sql = ""
             try:
                 self.taobao_cur.execute(inster_sql)
                 self.taobao_con.commit()
             except Exception as DF:
                 if "PRIMARY" in str(DF):
-                    updata_sql = "UPDATE shopping_car SET createtime=NOW() WHERE id='{}'".format(product['id'])
+                    updata_sql = ""
                     try:
                         self.taobao_cur.execute(updata_sql)
                         self.taobao_con.commit()
@@ -206,7 +201,7 @@ class shopping_trolley():
 
 
     def main(self):
-        select_sql = "SELECT cookie, user_agent FROM `cookie_table` WHERE username='{}' AND pwd='{}'".format(self.username, self.passworld)
+        select_sql = ""
         try:
             self.taobao_cur.execute(select_sql)
         except Exception as E:
@@ -229,7 +224,7 @@ def start_func(username, passworld):
 
 
 if __name__ == '__main__':
-    username = "金骆驿"
-    passworld = "jly1314yy1207"
+    username = ""
+    passworld = ""
     start_func(username, passworld)
 
