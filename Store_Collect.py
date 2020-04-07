@@ -6,7 +6,9 @@
 
 
 """
+************************************************************************************************************************
 收藏店铺信息抓取
+************************************************************************************************************************
 """
 
 
@@ -21,17 +23,11 @@ class StoreCollect():
         self.username = username
         self.passworld = passworld
 
-        self.taobao_con = pymysql.connect(
-            host='',
-            user="",
-            password="",
-            database="",
-            charset='utf8'
-        )
+        self.taobao_con = pymysql.connect(host='', user="", password="", database="", charset='utf8')
 
         self.taobao_cur = self.taobao_con.cursor()
 
-        proxy_sql = "SELECT proxy FROM `proxy_table`"
+        proxy_sql = ""
         try:
             self.taobao_cur.execute(proxy_sql)
         except Exception as E:
@@ -108,8 +104,7 @@ class StoreCollect():
                     product_list.append(collectionNum)
                     productList.append(product_list)
 
-                    insert_sql = "INSERT INTO Store_Collect (username, passworld, shopname, shopUrl, wangwangnice, NewArrival, discounts, hotsell, Forsale, collectionNum) VALUES('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(self.username, self.passworld, shopname, shopUrl, wangwangnice, NewArrival, discounts, hotsell, Forsale, collectionNum)
-
+                    insert_sql = ""
                     try:
                         self.taobao_cur.execute(insert_sql)
                         self.taobao_con.commit()
@@ -121,8 +116,7 @@ class StoreCollect():
         return productList
 
     def main(self):
-        select_sql = "SELECT cookie, user_agent FROM `cookie_table` WHERE username='{}' AND pwd='{}'".format(
-            self.username, self.passworld)
+        select_sql = ""
         try:
             self.taobao_cur.execute(select_sql)
         except Exception as E:
