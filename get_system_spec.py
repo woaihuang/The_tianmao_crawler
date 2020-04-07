@@ -20,7 +20,7 @@ def system_spec():
     cmd = 'ipconfig /all'
     os.popen(encodestr).read()
     res = os.popen(cmd)
-    output_str = res.read()   # 获得输出字符串
+    output_str = res.read()                                                                                                                          #获得输出字符串
     information['hostname'] = str(re.findall("Host Name . . . . . . . . . . . . : (.*?)Primary Dns Suffix", output_str, re.S)[0]).strip()            #主机名
     information['machine_code'] = str(re.findall("Physical Address. . . . . . . . . :(.*?)DHCP Enabled", output_str, re.S)[0]).strip()               #本机机器码
     information['localIP'] = re.findall("IPv4 Address. . . . . . . . . . . : (.*?)\(", output_str, re.S)[0]                                          #本机ip
